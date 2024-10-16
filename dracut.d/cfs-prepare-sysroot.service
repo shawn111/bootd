@@ -1,0 +1,13 @@
+[Unit]
+Description=prepare sysroot from composefs
+
+OnFailure=emergency.target
+OnFailureJobMode=isolate
+
+After=sysroot.mount
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStartPre=/bin/mount -o remount,rw /sysroot
+ExecStart=/usr/libexec/cfs-prepare-sysroot.sh
