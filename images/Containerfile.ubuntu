@@ -1,5 +1,6 @@
 ARG base=docker.io/library/ubuntu:rolling
 
+
 FROM $base as composefs
 RUN apt update
 RUN apt install -y git autoconf m4 libglib2.0-dev libtool bison \
@@ -13,18 +14,24 @@ RUN meson setup target --prefix=/cfs/target/usr --default-library=shared -Dfuse=
 RUN meson compile -C target
 RUN meson install -C target
 
+
+
 FROM $base
 RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y systemd ostree dracut
+
+## bootd required packages
+# kernel / systemd
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y systemd dracut
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-generic
-#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y dracut-config-generic
 
 COPY --from=composefs /cfs/target/usr /usr
-
+## bootd parts
 RUN mkdir -p /usr/lib/dracut/modules.d
 COPY dracut.d /usr/lib/dracut/modules.d/80cfs-prepare-root
 
 RUN dracut --list-modules --no-kernel
+
+## make bootd-able initramfs.img
 RUN dracut --force -a cfs-prepare-root --kver $(ls /usr/lib/modules)
 RUN cp /boot/initrd.img-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/modules)/initramfs.img
 RUN cp /boot/vmlinuz-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/modules)/vmlinuz

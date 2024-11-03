@@ -4,6 +4,7 @@
 However, due to the developement history bootc is highly related with ostree and many other projects.
 
 `bootd` would provide a simple way just rely on systemd / drucat / grub / [composefs](https://github.com/containers/composefs) make boot from container image as simple as possible.
+It only handles mount oci composefs as sysroot.
 The final goal is merged back to bootc project.
 
 There are three parts
