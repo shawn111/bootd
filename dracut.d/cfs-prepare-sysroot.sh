@@ -5,7 +5,7 @@ CMDLINES=$(cat /proc/cmdline)
 mkdir -p /sysroot.tmp
 
 ## FIXME rd.
-xargs -n1 -a /proc/cmdline | grep = | grep -v BOOT_IMAGE | tee /tmp/cmdline.sh
+xargs -n1 -a /proc/cmdline | grep root= | tee /tmp/cmdline.sh
 . /tmp/cmdline.sh || true
 
 ## FIXME root-device
