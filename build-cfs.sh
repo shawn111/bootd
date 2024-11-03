@@ -3,7 +3,7 @@ MNT=`podman image mount $IMAGE`
 SYSROOT_MNT=/root/sysroot
 
 xargs -n1 -a /proc/cmdline | grep = | tee /tmp/cmdline.sh
-source /tmp/cmdline.sh
+source /tmp/cmdline.sh || true
 
 mkdir -p $SYSROOT_MNT
 mount $root $SYSROOT_MNT
@@ -21,10 +21,14 @@ linux /bootd-vmlinuz-$IMAGE
 initrd /bootd-initramfs.img-$IMAGE
 EOF
 
+# copy default
 cp -rfv $MNT/usr/etc /etc
+
+# override
 for i in fstab passwd shadow
+do
   cp /etc/$i $SYSROOT_MNT/etc
-EOF
+done
 
 #repo /composefs/repo
 #composefs/images/$image.cfs

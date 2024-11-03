@@ -15,7 +15,6 @@ RUN meson compile -C target
 RUN meson install -C target
 
 
-
 FROM $base
 RUN apt update
 
@@ -24,6 +23,7 @@ RUN apt update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y systemd dracut
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-generic
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim
+
 
 COPY --from=composefs /cfs/target/usr /usr
 ## bootd parts
@@ -36,4 +36,5 @@ RUN dracut --list-modules --no-kernel
 RUN dracut --force -a cfs-prepare-root --kver $(ls /usr/lib/modules)
 RUN cp /boot/initrd.img-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/modules)/initramfs.img
 RUN cp /boot/vmlinuz-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/modules)/vmlinuz
+RUN cp -r /etc /usr/etc
 RUN apt clean
