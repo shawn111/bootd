@@ -2,7 +2,7 @@
 
 CMDLINES=$(cat /proc/cmdline)
 
-mkdir /sysroot.tmp
+mkdir -p /sysroot.tmp
 
 ## FIXME rd.
 xargs -n1 -a /proc/cmdline | grep = | grep -v rd. | tee /tmp/cmdline.sh
