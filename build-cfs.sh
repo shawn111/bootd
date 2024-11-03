@@ -16,8 +16,8 @@ cat << EOF > /boot/loader/entries/bootd.conf
 title bootd $IMAGE
 version 1
 options root=$root rw image=bootd-ubuntu rd.break=cleanup
-linux bootd-vmlinuz-$IMAGE
-initrd bootd-initramfs.img-$IMAGE
+linux /bootd-vmlinuz-$IMAGE
+initrd /bootd-initramfs.img-$IMAGE
 EOF
 
 #repo /composefs/repo

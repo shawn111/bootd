@@ -4,7 +4,8 @@ CMDLINES=$(cat /proc/cmdline)
 
 mkdir /sysroot.tmp
 
-xargs -n1 -a /proc/cmdline | grep = | tee /tmp/cmdline.sh
+## FIXME rd.
+xargs -n1 -a /proc/cmdline | grep = | grep -v rd. | tee /tmp/cmdline.sh
 source /tmp/cmdline.sh
 
 ## FIXME root-device
