@@ -21,7 +21,7 @@ cp $MNT/usr/lib/modules/*/initramfs.img /boot/bootd-initramfs.img-$IMAGE
 cat << EOF > /boot/loader/entries/bootd.conf
 title bootd $IMAGE
 version 1
-options root=$root rw image=bootd-ubuntu rd.break=cleanup
+options root=$root rw image=bootd-ubuntu systemd.debug-shell=1
 linux /bootd-vmlinuz-$IMAGE
 initrd /bootd-initramfs.img-$IMAGE
 EOF
