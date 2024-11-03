@@ -17,6 +17,7 @@ install() {
     inst_binary /usr/bin/tee
     inst_binary /usr/bin/xargs
     inst_binary /usr/bin/grep
+    inst_binary /usr/bin/vi
 
     inst_simple "${moddir}/cfs-prepare-sysroot.sh" "/usr/libexec/cfs-prepare-sysroot.sh"
     inst_simple "${moddir}/cfs-prepare-sysroot.service" "$systemdsystemunitdir/cfs-prepare-sysroot.service"
