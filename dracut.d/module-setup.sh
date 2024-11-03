@@ -13,10 +13,12 @@ depends() {
 
 # called by dracut
 install() {
-    inst_binary /usr/bin/mount.composefs
+    inst_binary /usr/sbin/mount.composefs
     inst_binary /usr/bin/tee
     inst_binary /usr/bin/xargs
     inst_binary /usr/bin/grep
+
+    ## FIXME FOR debug
     inst_binary /usr/bin/vi
 
     inst_simple "${moddir}/cfs-prepare-sysroot.sh" "/usr/libexec/cfs-prepare-sysroot.sh"
