@@ -6,6 +6,7 @@ xargs -n1 -a /proc/cmdline | grep = | tee /tmp/cmdline.sh
 source /tmp/cmdline.sh
 
 mkdir -p $SYSROOT_MNT
+mount $root $SYSROOT_MNT
 mkdir -p $SYSROOT_MNT/composefs/images $SYSROOT_MNT/composefs/repo
 mkcomposefs --digest-store=$SYSROOT_MNT/composefs/repo $MNT $SYSROOT_MNT/composefs/images/$IMAGE.cfs
 
@@ -18,6 +19,11 @@ version 1
 options root=$root rw image=bootd-ubuntu rd.break=cleanup
 linux /bootd-vmlinuz-$IMAGE
 initrd /bootd-initramfs.img-$IMAGE
+EOF
+
+cp -rfv $MNT/usr/etc /etc
+for i in fstab passwd shadow
+  cp /etc/$i $SYSROOT_MNT/etc
 EOF
 
 #repo /composefs/repo
