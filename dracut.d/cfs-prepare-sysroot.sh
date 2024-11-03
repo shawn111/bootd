@@ -6,7 +6,7 @@ mkdir -p /sysroot.tmp
 
 ## FIXME rd.
 xargs -n1 -a /proc/cmdline | grep = | tee /tmp/cmdline.sh
-source /tmp/cmdline.sh || true
+. /tmp/cmdline.sh || true
 
 ## FIXME root-device
 mount -o rw $root /sysroot.tmp
