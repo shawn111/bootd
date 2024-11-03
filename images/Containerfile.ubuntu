@@ -23,6 +23,7 @@ RUN apt update
 # kernel / systemd
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y systemd dracut
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-generic
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim
 
 COPY --from=composefs /cfs/target/usr /usr
 ## bootd parts
