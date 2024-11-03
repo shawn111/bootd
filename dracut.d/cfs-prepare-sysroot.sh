@@ -8,6 +8,9 @@ mkdir -p /sysroot.tmp
 xargs -n1 -a /proc/cmdline | grep root= | tee /tmp/cmdline.sh
 . /tmp/cmdline.sh || true
 
+xargs -n1 -a /proc/cmdline | grep image= | tee /tmp/cmdline.sh
+. /tmp/cmdline.sh || true
+
 ## FIXME root-device
 mount -o rw $root /sysroot.tmp
 
