@@ -13,6 +13,11 @@ mkcomposefs --digest-store=$SYSROOT_MNT/composefs/repo $MNT $SYSROOT_MNT/compose
 cp $MNT/usr/lib/modules/*/vmlinuz /boot/bootd-vmlinuz-$IMAGE
 cp $MNT/usr/lib/modules/*/initramfs.img /boot/bootd-initramfs.img-$IMAGE
 
+# systemd.debug-shell=1
+# https://vmware.github.io/photon/assets/files/html/3.0/photon_troubleshoot/enabling-systemd-debug.html
+# Press Alt+Ctrl+F9 to switch to tty9 to access the debug shell.
+
+# systemd.log_level=debug
 cat << EOF > /boot/loader/entries/bootd.conf
 title bootd $IMAGE
 version 1

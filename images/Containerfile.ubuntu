@@ -22,7 +22,9 @@ RUN apt update
 # kernel / systemd
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y systemd dracut
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-generic
+
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y less
 
 
 COPY --from=composefs /cfs/target/usr /usr
