@@ -26,14 +26,25 @@ linux /bootd-vmlinuz-$IMAGE
 initrd /bootd-initramfs.img-$IMAGE
 EOF
 
-# copy default
-cp -rfv $MNT/usr/etc /etc
 
+# copy default
+mkdir -p $SYSROOT_MNT/composefs/etc
+. $MNT/usr/lib/os-release
+
+TARGET_ETC=$SYSROOT_MNT/composefs/etc/$ID.$VERSION_ID
+
+TARGET_VAR=$SYSROOT_MNT/ostree/deploy/default/var
+test -d $TARGET_VAR || TARGET_VAR=$SYSROOT_MNT/var
+
+test -d $SYSROOT_MNT/home && (mv $SYSROOT_MNT/home $TAGET_VAR/home && ln -s var/home $SYSROOT_MNT/home)
+test -d $SYSROOT_MNT/root && (mv $SYSROOT_MNT/root $TAGET_VAR/roothome && ln -s var/root $SYSROOT_MNT/root)
+test -d $SYSROOT_MNT/mnt && (mv $SYSROOT_MNT/mnt $TAGET_VAR/mnt && ln -s var/mnt $SYSROOT_MNT/mnt)
+test -d $SYSROOT_MNT/srv && (mv $SYSROOT_MNT/srv $TAGET_VAR/srv && ln -s var/mnt $SYSROOT_MNT/srv)
+
+# FIXME 3 way merge
+cp -rfv $MNT/usr/etc $TARGET_ETC
 # override
 for i in fstab passwd shadow
 do
-  cp /etc/$i $SYSROOT_MNT/etc
+  cp /etc/$i $TARGET_ETC/$i
 done
-
-#repo /composefs/repo
-#composefs/images/$image.cfs
