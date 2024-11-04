@@ -26,6 +26,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-generic
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y less
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y udev lvm2 iproute2 kmod
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo
 
 
 
@@ -43,6 +44,16 @@ RUN cp /boot/vmlinuz-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/modul
 RUN cp -r /etc /usr/etc
 RUN apt clean
 
+# rhel
+# /var/lib/rpm >> ../../usr/share/rpm
+
+# deb
+# /var/lib/dpkg >> ../usr/share/bootd/dpkg
+# /var/lib/apt >> ../usr/share/bootd/apt
+
+RUN mkdir -p /usr/share/bootd
+RUN mv /var/lib/dpkg /usr/share/bootd
+RUN mv /var/lib/apt /usr/share/bootd
 
 ## Refer ostree define
 RUN rm -rf /root && ln -s var/roothome /root

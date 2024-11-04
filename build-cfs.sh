@@ -33,18 +33,22 @@ mkdir -p $SYSROOT_MNT/composefs/etc
 
 TARGET_ETC=$SYSROOT_MNT/composefs/etc/$ID.$VERSION_ID
 
-TARGET_VAR=$SYSROOT_MNT/ostree/deploy/default/var
-test -d $TARGET_VAR || TARGET_VAR=$SYSROOT_MNT/var
+#TARGET_VAR=$SYSROOT_MNT/ostree/deploy/default/var
+#test -d $TARGET_VAR || TARGET_VAR=$SYSROOT_MNT/var
+#
+#test -d $SYSROOT_MNT/home && (mv $SYSROOT_MNT/home $TAGET_VAR/home && ln -s var/home $SYSROOT_MNT/home)
+#test -d $SYSROOT_MNT/root && (mv $SYSROOT_MNT/root $TAGET_VAR/roothome && ln -s var/root $SYSROOT_MNT/root)
+#test -d $SYSROOT_MNT/mnt && (mv $SYSROOT_MNT/mnt $TAGET_VAR/mnt && ln -s var/mnt $SYSROOT_MNT/mnt)
+#test -d $SYSROOT_MNT/srv && (mv $SYSROOT_MNT/srv $TAGET_VAR/srv && ln -s var/mnt $SYSROOT_MNT/srv)
 
-test -d $SYSROOT_MNT/home && (mv $SYSROOT_MNT/home $TAGET_VAR/home && ln -s var/home $SYSROOT_MNT/home)
-test -d $SYSROOT_MNT/root && (mv $SYSROOT_MNT/root $TAGET_VAR/roothome && ln -s var/root $SYSROOT_MNT/root)
-test -d $SYSROOT_MNT/mnt && (mv $SYSROOT_MNT/mnt $TAGET_VAR/mnt && ln -s var/mnt $SYSROOT_MNT/mnt)
-test -d $SYSROOT_MNT/srv && (mv $SYSROOT_MNT/srv $TAGET_VAR/srv && ln -s var/mnt $SYSROOT_MNT/srv)
+# FIXME
+ln -s -f ../usr/share/bootd/apt $TAGET_VAR/lib/apt
+ln -s -f ../usr/share/bootd/dpkg $TAGET_VAR/lib/dpkg
 
 # FIXME 3 way merge
 cp -rfv $MNT/usr/etc $TARGET_ETC
 # override
-for i in fstab passwd shadow
+for i in fstab passwd shadow sudo.conf sudoers
 do
   cp /etc/$i $TARGET_ETC/$i
 done
