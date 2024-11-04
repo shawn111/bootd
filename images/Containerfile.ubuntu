@@ -27,7 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y overlayroot
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y less
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y udev lvm2 iproute2 kmod
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo podman
 
 
 
