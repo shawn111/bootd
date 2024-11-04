@@ -22,12 +22,13 @@ RUN apt update
 # kernel / systemd
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y systemd dracut
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-generic
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y overlayroot
+#RUN DEBIAN_FRONTEND=noninteractive apt-get install -y overlayroot
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y vim
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y less
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y udev lvm2 iproute2 kmod
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo podman
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y sudo podman iputils-ping
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y netplan.io netplan-generator
 
 
 

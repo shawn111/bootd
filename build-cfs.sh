@@ -52,3 +52,6 @@ for i in fstab passwd shadow sudo.conf sudoers
 do
   cp /etc/$i $TARGET_ETC/$i
 done
+
+
+echo mount -t overlay overlay -o upperdir=/var/tmp/xx,lowerdir=/usr,workdir=/var/tmp/work /usr
