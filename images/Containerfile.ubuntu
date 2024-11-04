@@ -42,3 +42,10 @@ RUN cp /boot/initrd.img-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/mo
 RUN cp /boot/vmlinuz-$(ls /usr/lib/modules) /usr/lib/modules/$(ls /usr/lib/modules)/vmlinuz
 RUN cp -r /etc /usr/etc
 RUN apt clean
+
+
+## Refer ostree define
+RUN rm -rf /root && ln -s var/roothome /root
+RUN rm -rf /home && ln -s var/home /home
+RUN rm -rf /mnt && ln -s var/mnt /mnt
+RUN rm -rf /srv && ln -s var/srv /srv
